@@ -2,7 +2,6 @@ const tmi = require('tmi.js');
 const fs = require('fs');
 
 //init
-const CHAT_CHANNEL = 'Manabender'; //The channel to send chat messages to.
 var scoreTimeoutFunc; //Reference to timeout function used to batch-post !score requests.
 var leadersTimeoutFunc; //Reference to timeout function used to handle !leaders cooldown.
 var qaTimeoutFunc; //Reference to timeout function used to handle !question/!answers cooldown.
@@ -24,14 +23,14 @@ var postFinal = false; //Out of !open, !close, and !final, was !final the most r
 //No OAuth key for you! This block reads the username and password from a private .gitignore-d file, then uses those credentials to connect to Twitch.
 var { username, password } = require("./credentials");
 var client;
-ConnectToTwitch(CHAT_CHANNEL);
 
 
 // Constants and variables
 var { addedControllers, basePoints, streakBonus } = require("./config");
-const { BOT_CONTROLLER, MAX_SCORE_REQUESTS, SCORE_REQUEST_BATCH_WAIT, LEADERS_COOLDOWN_WAIT, QA_COOLDOWN_WAIT, INITIAL_TIMESTAMP } = require("./config");
+const { CHAT_CHANNEL, BOT_CONTROLLER, MAX_SCORE_REQUESTS, SCORE_REQUEST_BATCH_WAIT, LEADERS_COOLDOWN_WAIT, QA_COOLDOWN_WAIT, INITIAL_TIMESTAMP } = require("./config");
 
 //On start
+ConnectToTwitch(CHAT_CHANNEL);
 fs.appendFile('log.txt', String(lineNumber).concat('\tBOT STARTED\n'), (err) =>
 {
 	if (err) throw err;
